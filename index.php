@@ -256,6 +256,8 @@
       color: #007bff;
     }
 
+    
+
     /* MOBILE RESPONSIVE - ENHANCED */
     @media (max-width: 768px) {
         /* Carousel */

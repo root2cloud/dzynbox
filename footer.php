@@ -3,65 +3,80 @@
         padding: 80px 0;
         background: white;
     }
+    
     .home-newsletterrr{
-        padding: 25px 0;
-        background: rgba(245, 245, 245, 1.00);
-        color:black;
+        padding: 60px 0;
+        background: #f8f9fa;
+        color: #333;
     }
+    
     .footerbottom{
         width: 100%;
         height: auto;
-        background: black;
+        background: #2c3e50;
         text-align: center;
-        padding: 14px 0;
-        color:white;
+        padding: 12px 0;
+        color: white;
     }
+    
     .footer_bottom{
-        color:aliceblue;
-        text-align: center;
+        color: #000;
+        text-align: left;
+    }
+
+    .home-newsletterrr h3 {
+        color: #000;
+        font-family: "Roboto", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+    
+    .home-newsletterrr ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .home-newsletterrr ul li {
+        color: #000;
+        font-family: "Roboto", sans-serif;
+        font-size: 13px;
+        line-height: 2;
+        margin-bottom: 5px;
     }
 
     li.footer_images a {
         font-family: "Roboto", sans-serif;
-        font-weight:300;
-        color: black;
+        font-weight: 400;
+        color: #000;
         text-decoration: none;
+        font-size: 13px;
+        transition: all 0.3s ease;
     }
     
     li.footer_images a:hover {
         color: #007bff;
-        text-decoration: underline;
-    }
-    
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    /* Desktop Footer Styles */
-    .home-newsletterrr h3 {
-        color: black;
-        font-family: "Roboto", sans-serif;
-        font-size: 18px;
         font-weight: 600;
-        margin-bottom: 20px;
-    }
-    
-    .home-newsletterrr ul li {
-        color: black;
-        font-family: "Roboto", sans-serif;
-        font-size: 14px;
-        line-height: 1.8;
     }
     
     .home-newsletterrr .logo {
         margin-bottom: 20px;
+        max-width: 200px;
+        height: auto;
+        display: block;
+    }
+
+    .home-newsletterrr .logo img {
+        width: 100%;
+        height: auto;
     }
     
     .roww {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         margin: 20px 0;
     }
 
@@ -71,25 +86,140 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        gap: 15px;
     }
 
     .social-list li {
-        margin: 0 10px;
+        margin: 0;
     }
 
-    .social-list .fa {
-        font-size: 24px;
-        color: #333;
-        transition: color 0.3s;
+    .social-list a {
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.3s ease !important;
+        background: none !important;
+        width: auto !important;
+        height: auto !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
     }
 
-    .social-list .fa:hover {
-        color: #007bff;
+    .social-list a i {
+        font-size: 22px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* Facebook - Blue */
+    .social-list a i.fa-facebook-f {
+        color: #1877f2 !important;
+    }
+    .social-list a:hover i.fa-facebook-f {
+        transform: translateY(-3px);
+    }
+
+    /* Instagram - Gradient Pink/Orange */
+    .social-list a i.fa-instagram {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .social-list a:hover i.fa-instagram {
+        transform: translateY(-3px);
+    }
+
+    /* Twitter/X - Black */
+    .social-list a i.fa-twitter,
+    .social-list a i.fa-x-twitter {
+        color: #000000 !important;
+    }
+    .social-list a:hover i.fa-twitter,
+    .social-list a:hover i.fa-x-twitter {
+        transform: translateY(-3px);
+    }
+
+    /* YouTube - Red */
+    .social-list a i.fa-youtube {
+        color: #ff0000 !important;
+    }
+    .social-list a:hover i.fa-youtube {
+        transform: translateY(-3px);
+    }
+
+    /* LinkedIn - Blue */
+    .social-list a i.fa-linkedin-in {
+        color: #0a66c2 !important;
+    }
+    .social-list a:hover i.fa-linkedin-in {
+        transform: translateY(-3px);
+    }
+
+    /* WhatsApp - Green */
+    .social-list a i.fa-whatsapp {
+        color: #25d366 !important;
+    }
+    .social-list a:hover i.fa-whatsapp {
+        transform: translateY(-3px);
     }
     
+    /* Contact icons - BLACK */
+    .home-newsletterrr li i {
+        color: #000 !important;
+        margin-right: 8px;
+        min-width: 14px;
+    }
+
+    .home-newsletterrr li a {
+        color: #000;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .home-newsletterrr li a:hover {
+        color: #3f20a4ff;
+    }
+
+    .home-newsletterrr li span {
+        color: #000;
+    }
+    
+    .footerbottom {
+        border-top: 2px solid #e0e0e0;
+    }
+
     .footerbottom .copyright {
         font-family: "Roboto", sans-serif;
-        font-size: 14px;
+        font-size: 12px;
+        color: #ccc;
+        margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .home-newsletterrr {
+            padding: 40px 0;
+        }
+
+        .home-newsletterrr h3 {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .social-list {
+            gap: 12px;
+        }
+
+        .social-list a i {
+            font-size: 20px !important;
+        }
+
+        .col-md-3 {
+            margin-bottom: 30px;
+        }
     }
 </style>
 
@@ -116,11 +246,11 @@ foreach ($result as $row)
 
 <?php if($newsletter_on_off == 1): ?>
 <section class="home-newsletterrr">
-    <div class="container">
-        <div class="row footer_bottom">
-            <div class="col-md-3">
-                <div>
-                    <img src="assets/uploads/<?php echo $logo; ?>" alt="logo image" class="logo" height="100" width="200">
+    <div class="container-fluid" style="padding-left: 40px; padding-right: 40px;">  
+            <div class="row footer_bottom">
+            <div class="col-md-3" style="text-align: center;">
+                <div style="text-align: center;">
+                    <img src="assets/uploads/<?php echo $logo; ?>" alt="logo image" class="logo">
                 </div>
                 <div class="roww">
                     <ul class="social-list">
@@ -130,10 +260,11 @@ foreach ($result as $row)
                         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($result as $row) {
                             if($row['social_url'] != '') {
+                                $icon_class = str_replace('fa ', 'fa-', $row['social_icon']);
                                 ?>
                                 <li class="social_images">
-                                    <a href="<?php echo $row['social_url']; ?>" target="_blank">
-                                        <i class="fa <?php echo $row['social_icon']; ?>"></i>
+                                    <a href="<?php echo $row['social_url']; ?>" target="_blank" title="Follow us">
+                                        <i class="fab <?php echo $icon_class; ?>"></i>
                                     </a>
                                 </li>
                                 <?php
@@ -145,37 +276,29 @@ foreach ($result as $row)
             </div>
             
             <div class="col-md-3">
-                <h3>ACCOUNT</h3>
+                <h3>Account</h3>
                 <ul>
-                    <li class="footer_images"><a href="customer-profile-update.php">My Account</a></li><br>
+                    <li class="footer_images"><a href="customer-profile-update.php">My Account</a></li>
                     <li class="footer_images"><a href="whistlist.php">My Wishlist</a></li>
                 </ul>
             </div>
             
             <div class="col-md-3">
-                <h3>INFORMATION</h3>
+                <h3>Information</h3>
                 <ul>
-                    <li class="footer_images"><a href="about.php">About us</a></li><br>
-                    <li class="footer_images"><a href="dzynboxcashpoints.php">Dzynbox Cash Points</a></li><br>
-                    <li class="footer_images"><a href="return_canculation.php">Returns&Cancellation</a></li><br>
-                    <!-- <li class="footer_images"><a href="partnerwithdzynbox.php">Partner with Dzynbox</a></li><br>
-                    <li class="footer_images"><a href="joinus.php">Join Us</a></li><br> -->
+                    <li class="footer_images"><a href="about.php">About us</a></li>
+                    <li class="footer_images"><a href="dzynboxcashpoints.php">Dzynbox Cash Points</a></li>
+                    <li class="footer_images"><a href="return_canculation.php">Returns & Cancellation</a></li>
                     <li class="footer_images"><a href="contact.php"><?php echo $contact_title; ?></a></li>
                 </ul>
             </div>
             
             <div class="col-md-3">
-                <h3>CONTACT US</h3>
+                <h3>Contact Us</h3>
                 <ul>
-                    <li><i class="fa fa-phone"></i> 9030902090</li><br>
-                    <li><i class="fa fa-envelope-o"></i> dzynbox@gmail.com</li><br>
-                    <li><i class="fa fa-map-marker"></i> Address : - <br><br>
-                        No 14 & 15 , Radiance drive inn, Radial Road, Tellapur<br>
-                        Ramachandrapuram, Medak<br>
-                        Hyderabad- 502032<br>
-                        Telangana<br>
-                        India
-                    </li>
+                    <li><i class="fa fa-phone"></i> <a href="tel:9030902090">9030902090</a></li>
+                    <li><i class="fa fa-envelope"></i> <a href="mailto:dzynbox@gmail.com">hello@dzynbox.com</a></li>
+                    <li><i class="fa fa-map-marker"></i> <span>No 14 & 15, Radiance drive inn, Radial Road,<br> Tellapur Ramachandrapuram, Medak Hyderabad -<br> 502032 Telangana, India</span></li>
                 </ul>
             </div>
         </div>
@@ -253,18 +376,14 @@ foreach ($result as $row)
 <?php endif; ?>
 
 <div class="footerbottom">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 copyright">
-                All Rights Reserved by dzynbox
+                All Rights Reserved By Dzynbox
             </div>
         </div>
     </div>
 </div>
-
-<a href="#" class="scrollup">
-    <i class="fa fa-angle-up"></i>
-</a>
 
 <?php
 $statement = $pdo->prepare("SELECT * FROM tbl_settings WHERE id=1");
@@ -294,9 +413,9 @@ foreach ($result as $row) {
     {
         return confirm("Sure you want to delete this data?");
     }
+
     $(document).ready(function () {
         advFieldsStatus = $('#advFieldsStatus').val();
-
         $('#paypal_form').hide();
         $('#stripe_form').hide();
         $('#bank_form').hide();
@@ -325,7 +444,7 @@ foreach ($result as $row) {
 
     $(document).on('submit', '#stripe_form', function () {
         $('#submit-button').prop("disabled", true);
-        $("#msg-container").hide();
+        $("#msg-container-fluid").hide();
         Stripe.card.createToken({
             number: $('.card-number').val(),
             cvc: $('.card-cvc').val(),
@@ -338,8 +457,8 @@ foreach ($result as $row) {
     function stripeResponseHandler(status, response) {
         if (response.error) {
             $('#submit-button').prop("disabled", false);
-            $("#msg-container").html('<div style="color: red;border: 1px solid;margin: 10px 0px;padding: 5px;"><strong>Error:</strong> ' + response.error.message + '</div>');
-            $("#msg-container").show();
+            $("#msg-container-fluid").html('<div style="color: red;border: 1px solid;margin: 10px 0px;padding: 5px;"><strong>Error:</strong> ' + response.error.message + '</div>');
+            $("#msg-container-fluid").show();
         } else {
             var form$ = $("#stripe_form");
             var token = response['id'];

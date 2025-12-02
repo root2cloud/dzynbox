@@ -300,7 +300,7 @@ if(isset($_POST['form1'])) {
 </div>
 
 <div class="page">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="user-content">
@@ -324,7 +324,7 @@ $statement->execute();
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<div class="container" style="background-color: #f9f9f9; padding: 37px; border-radius: 10px;">
+<div class="container-fluid" style="background-color: #f9f9f9; padding: 37px; border-radius: 10px;">
     <form method="post" action="prices.php">
     <div class="row">
         <?php

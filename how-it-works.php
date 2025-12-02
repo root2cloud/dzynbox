@@ -235,7 +235,7 @@ $steps = [
 
 <!-- Main Content Section -->
 <section class="py-20 md:step-wrapper bg-white">
-    <div class="container mx-auto px-4 desktop-container">
+    <div class="container">
         <!-- Introduction -->
         <div class="text-center mb-16 md:mb-32">
             <h2 class="text-4xl md:intro-title font-bold text-gray-900 mb-4">How It Works</h2>
@@ -268,7 +268,7 @@ $steps = [
                 
                 <!-- Image Right -->
                 <div class="md:w-1/2 w-full flex justify-center px-4">
-                    <div class="overflow-hidden rounded-2xl md:step-image-container shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="container">
                         <img src="<?php echo htmlspecialchars($step['image']); ?>"
                              alt="<?php echo htmlspecialchars($step['title']); ?>"
                              class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110" />
@@ -277,7 +277,7 @@ $steps = [
             <?php else: ?>
                 <!-- Image Left, Text Right -->
                 <div class="md:w-1/2 w-full flex justify-center px-4 order-2 md:order-1">
-                    <div class="overflow-hidden rounded-2xl md:step-image-container shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="container">
                         <img src="<?php echo htmlspecialchars($step['image']); ?>"
                              alt="<?php echo htmlspecialchars($step['title']); ?>"
                              class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110" />
@@ -307,7 +307,7 @@ $steps = [
 
 <!-- Call to Action Section -->
 <section class="py-16 md:cta-section bg-gradient-to-r from-pink-500 to-purple-600 relative">
-    <div class="container mx-auto px-4 text-center relative z-10">
+    <div class="container">
         <h2 class="text-4xl md:cta-title font-bold text-white mb-6 md:mb-10">Ready to Get Started?</h2>
         <p class="text-xl md:cta-description text-white/90 mb-8 md:mb-14 max-w-2xl md:max-w-4xl mx-auto leading-relaxed">
             Begin your interior design journey today and transform your space into something extraordinary.
@@ -317,5 +317,6 @@ $steps = [
         </a>
     </div>
 </section>
+
 <?php require_once('footer.php'); ?>
 

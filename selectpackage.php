@@ -1,21 +1,158 @@
 <?php
-require_once('header.php');
-// Process form submission
+// DO NOT require header.php yet!
+// First check if it's a POST request to generate PDF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require('fpdf/fpdf.php');
+    
     $bhkType = isset($_POST['bhk_type']) ? $_POST['bhk_type'] : '';
-    $sizeType = isset($_POST['size_type']) ? $_POST['size_type'] : '';
     $materialType = isset($_POST['material_type']) ? $_POST['material_type'] : '';
+    $packageType = isset($_POST['package_type']) ? $_POST['package_type'] : '';
 
-    if ($bhkType && $sizeType && $materialType) {
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="quote.pdf"');
-        echo "Quote for: " . htmlspecialchars($bhkType) . " BHK - " . htmlspecialchars($sizeType) . " with " . htmlspecialchars($materialType);
+    if ($bhkType && $materialType && $packageType) {
+        generateQuotePDF($bhkType, $materialType, $packageType);
         exit;
-    } else {
-        echo "Error: Please complete all steps.";
     }
 }
+
+// NOW include header.php (only if not generating PDF)
+require_once('header.php');
+
+// DEFINE FUNCTIONS BEFORE USING THEM
+
+function addSection($pdf, $title, $items) {
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(0, 8, $title, 0, 1, 'L');
+    $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+    $pdf->Ln(2);
+    
+    $pdf->SetFont('Arial', '', 10);
+    foreach ($items as $item) {
+        $pdf->Cell(10, 6, chr(149), 0, 0, 'L');
+        $pdf->MultiCell(0, 6, $item);
+    }
+    $pdf->Ln(3);
+}
+
+function getPackageData($packageType, $bhkType) {
+    // Database connection (update with your credentials)
+    $conn = new mysqli('localhost', 'root', '', 'aeries_dbnew');
+    
+    if ($conn->connect_error) {
+        die('Connection failed: ' . $conn->connect_error);
+    }
+    
+    // Get package details
+    $packageQuery = "SELECT id, original_price, discount_price FROM packages 
+                    WHERE package_name = ? AND bhk_type = ?";
+    $stmt = $conn->prepare($packageQuery);
+    $stmt->bind_param('ss', $packageType, $bhkType);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        return [
+            'original_price' => '0 LAC',
+            'discount_price' => '0 LAC',
+            'sections' => []
+        ];
+    }
+    
+    $packageData = $result->fetch_assoc();
+    $packageId = $packageData['id'];
+    $packageData['sections'] = [];
+    
+    // Get all sections for this package
+    $sectionsQuery = "SELECT id, section_title FROM package_sections 
+                     WHERE package_id = ? ORDER BY id";
+    $stmt = $conn->prepare($sectionsQuery);
+    $stmt->bind_param('i', $packageId);
+    $stmt->execute();
+    $sectionsResult = $stmt->get_result();
+    
+    while ($section = $sectionsResult->fetch_assoc()) {
+        $sectionId = $section['id'];
+        $sectionTitle = $section['section_title'];
+        
+        // Get all items for this section
+        $itemsQuery = "SELECT item_name FROM section_items 
+                      WHERE section_id = ? ORDER BY id";
+        $stmt2 = $conn->prepare($itemsQuery);
+        $stmt2->bind_param('i', $sectionId);
+        $stmt2->execute();
+        $itemsResult = $stmt2->get_result();
+        
+        $items = [];
+        while ($item = $itemsResult->fetch_assoc()) {
+            $items[] = $item['item_name'];
+        }
+        
+        $packageData['sections'][] = [
+            'title' => $sectionTitle,
+            'items' => $items
+        ];
+    }
+    
+    $conn->close();
+    return $packageData;
+}
+
+
+function generateQuotePDF($bhkType, $materialType, $packageType) {
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    
+    // Get package title and data based on selection
+    $packageData = getPackageData($packageType, $bhkType);
+    
+    // Title
+    $pdf->SetFont('Arial', 'B', 24);
+    $pdf->SetTextColor(139, 0, 0);
+    $pdf->Cell(0, 15, ucfirst($packageType) . ' :', 0, 1, 'L');
+    
+    $pdf->SetFont('Arial', '', 14);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(0, 8, 'ESSENTIAL WOODWORK FOR A ' . strtoupper($bhkType), 0, 1, 'L');
+    $pdf->Ln(3);
+    
+    // Price section
+    $pdf->SetFont('Arial', 'B', 20);
+    $pdf->SetTextColor(128, 128, 128);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(50, 10, 'OFFER', 0, 0, 'L');
+    
+    $pdf->SetFont('Arial', '', 16);
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $pdf->Cell(40, 10, chr(8377) . ' ' . $packageData['original_price'], 0, 0, 'L');
+    $pdf->Line($x, $y + 5, $x + 40, $y + 5);
+    
+    $pdf->SetFont('Arial', 'B', 20);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(50, 10, chr(8377) . ' ' . $packageData['discount_price'], 0, 1, 'L');
+    
+    $pdf->Ln(5);
+    $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+    $pdf->Ln(5);
+    
+    // Add all sections based on package data
+    foreach ($packageData['sections'] as $section) {
+        addSection($pdf, $section['title'], $section['items']);
+    }
+    
+    $pdf->Ln(5);
+    $pdf->SetFont('Arial', 'I', 10);
+    $pdf->SetTextColor(100, 100, 100);
+    $pdf->MultiCell(0, 5, 'Selected: ' . $bhkType . ' | Material: ' . $materialType . ' | Package: ' . $packageType);
+    
+    $pdf->Output('D', 'Quotation_' . str_replace(' ', '_', $bhkType) . '_' . $packageType . '.pdf');
+}
+
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -232,34 +369,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             min-width:20%; 
         }
-
-        .dropdown{
-            display:flex;
-            justify-content:space-around;
-            margin-top: 10px;
-        }
         
-        .dropdown label{
-            font-size:16px;
-            margin-left:13px;
-            cursor: pointer;
-        }
-
-        .dropdown input[type="radio"] {
-            margin-right: 5px;
-        }
-        
-        .exclusive-card{
+        .smartseries-card{
             background:black;
             color:white;
         }
         
-        .premium-card{
+        .elegance-card{
             background:black;
             color:white;
         }
         
-        .luxury-card{
+        .signature-card{
+            background:black;
+            color:white;
+        }
+
+        .bespoke-card{
             background:black;
             color:white;
         }
@@ -369,20 +495,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 min-width: 100%;
                 padding: 10px 15px;
                 font-size: 14px;
-            }
-
-            .dropdown {
-                flex-direction: column;
-                gap: 8px;
-                margin-top: 8px;
-            }
-
-            .dropdown label {
-                font-size: 13px;
-                margin-left: 0;
-                padding: 8px;
-                background: #f9f9f9;
-                border-radius: 5px;
             }
 
             .material-options label {
@@ -606,53 +718,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img id="img-4bhk" src="https://res.cloudinary.com/df5wchqdr/image/upload/v1757068134/ChatGPT_Image_Sep_5__2025__03_57_31_PM-removebg-preview_e6ir1i.png" class="rotate hidden" alt="4 BHK"/>
             <img id="img-5bhk" src="https://res.cloudinary.com/df5wchqdr/image/upload/v1757068396/ChatGPT_Image_Sep_5__2025__04_01_06_PM-removebg-preview_vej3gs.png" class="rotate hidden" alt="5 BHK"/>
         </div>
-    
+        
         <div class="buttons-container">
             <div class="onebhk-button-container">
-                <button type="button" onclick="selectBhk('1bhk')">1 BHK</button>
-                <div id="1bhk" class="hidden dropdown">
-                    <label><input type="radio" name="size_type" value="Small (below 1200 sqft)"> Small (below 1200 sqft)</label>
-                    <label><input type="radio" name="size_type" value="Large (above 1200 sqft)"> Large (above 1200 sqft)</label>
-                    <input type="hidden" name="bhk_type" value="1 BHK">
-                </div>
+                <button type="button" onclick="selectBhk('1bhk', '1 BHK')">1 BHK</button>
             </div>
             
             <div class="onebhk-button-container">
-                <button type="button" onclick="selectBhk('2bhk')">2 BHK</button>
-                <div id="2bhk" class="hidden dropdown">
-                    <label><input type="radio" name="size_type" value="Small (below 1200 sqft)"> Small (below 1200 sqft)</label>
-                    <label><input type="radio" name="size_type" value="Large (above 1200 sqft)"> Large (above 1200 sqft)</label>
-                    <input type="hidden" name="bhk_type" value="2 BHK">
-                </div>
+                <button type="button" onclick="selectBhk('2bhk', '2 BHK')">2 BHK</button>
             </div>
             
             <div class="onebhk-button-container">
-                <button type="button" onclick="selectBhk('3bhk')">3 BHK</button>
-                <div id="3bhk" class="hidden dropdown">
-                    <label><input type="radio" name="size_type" value="Small (below 1200 sqft)"> Small (below 1200 sqft)</label>
-                    <label><input type="radio" name="size_type" value="Large (above 1200 sqft)"> Large (above 1200 sqft)</label>
-                    <input type="hidden" name="bhk_type" value="3 BHK">
-                </div>
+                <button type="button" onclick="selectBhk('3bhk', '3 BHK')">3 BHK</button>
             </div>
             
             <div class="onebhk-button-container">
-                <button type="button" onclick="selectBhk('4bhk')">4 BHK</button>
-                <div id="4bhk" class="hidden dropdown">
-                    <label><input type="radio" name="size_type" value="Small (below 1200 sqft)"> Small (below 1200 sqft)</label>
-                    <label><input type="radio" name="size_type" value="Large (above 1200 sqft)"> Large (above 1200 sqft)</label>
-                    <input type="hidden" name="bhk_type" value="4 BHK">
-                </div>
+                <button type="button" onclick="selectBhk('4bhk', '4 BHK')">4 BHK</button>
             </div>
 
             <div class="onebhk-button-container"> 
-                <button type="button" onclick="selectBhk('5bhk')">5 BHK</button>
-                <div id="5bhk" class="hidden dropdown">
-                    <label><input type="radio" name="size_type" value="Small (below 1200 sqft)"> Small (below 1200 sqft)</label>
-                    <label><input type="radio" name="size_type" value="Large (above 1200 sqft)"> Large (above 1200 sqft)</label>
-                    <input type="hidden" name="bhk_type" value="5 BHK">
-                </div>
+                <button type="button" onclick="selectBhk('5bhk', '5 BHK')">5 BHK</button>
             </div>
         </div>
+        <!-- ONE hidden input OUTSIDE the loop -->
+        <input type="hidden" name="bhk_type" id="bhk_type_input" value="">
         <button type="button" class="button" onclick="nextStep()">Next</button>
     </div>
 
@@ -665,12 +754,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span>Plywood</span>
             </label>
             <label>
-                <input type="radio" name="material_type" id="teak" value="Teak">
-                <span>Teak</span>
-            </label>
-            <label>
                 <input type="radio" name="material_type" id="hd-fiberwood" value="High Density Fiberwood">
                 <span>High Density Fiberwood</span>
+            </label>
+            <label>
+                <input type="radio" name="material_type" id="WPC" value="Wood Polymer Composite">
+                <span>Wood Polymer Composite</span>
             </label>
         </div>
         <div class="button-group">
@@ -683,23 +772,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="containerr hidden" id="step3-container">
         <label>Select a Package:</label>
         <div class="cards-container">
-            <div class="card exclusive-card">
-                <h3>Exclusive</h3>
+            <div class="card smartseries-card">
+                <h3>Smart series</h3>
                 <p style="color:white;">Includes basic features and finishes.</p>
-                <input type="radio" name="package_type" value="Exclusive" id="exclusive">
-                <label for="exclusive" style="color:white; cursor:pointer;">Select Exclusive</label>
+                <input type="radio" name="package_type" value="Smart series" id="smartseries">
+                <label for="smartseries" style="color:white; cursor:pointer;">Select Smart series</label>
             </div>
-            <div class="card premium-card">
-                <h3>Premium</h3>
+            <div class="card elegance-card">
+                <h3>Elegance</h3>
                 <p style="color:white;">Includes advanced features and premium finishes.</p>
-                <input type="radio" name="package_type" value="Premium" id="premium">
-                <label for="premium" style="color:white; cursor:pointer;">Select Premium</label>
+                <input type="radio" name="package_type" value="elegance" id="elegance">
+                <label for="elegance" style="color:white; cursor:pointer;">Select Elegance</label>
             </div>
-            <div class="card luxury-card">
-                <h3>Luxury</h3>
+            <div class="card signature-card">
+                <h3>Signature</h3>
                 <p style="color:white;">Top-of-the-line features and luxury finishes.</p>
-                <input type="radio" name="package_type" value="Luxury" id="luxury">
-                <label for="luxury" style="color:white; cursor:pointer;">Select Luxury</label>
+                <input type="radio" name="package_type" value="signature" id="signature">
+                <label for="signature" style="color:white; cursor:pointer;">Select Signature</label>
+            </div>
+            <div class="card bespoke-card">
+                <h3>Bespoke</h3>
+                <p style="color:white;">Curated</p>
+                <input type="radio" name="package_type" value="curated" id="curated">
+                <label for="bespoke" style="color:white; cursor:pointer;">Select Curated</label>
             </div>
         </div>
         <div class="button-group">
@@ -712,21 +807,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="containerr hidden" id="step4-container">
         <p>Review your selections and submit the form to get your quote.</p>
         <div class="button-group">
-            <button type="submit" class="button">Get Quote PDF</button>
             <button type="button" class="button" onclick="previousStep()">Back</button>
+            <button type="submit" class="button">Get Quote PDF</button>
         </div>
     </div>
 </form>
 
 <script>
 let currentStep = 1;
+let selectedBhkType = '';
 
-function selectBhk(bhkId) {
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
-    
-    document.getElementById(bhkId).classList.remove('hidden');
-    
+function selectBhk(bhkId, bhkName) {
     document.querySelectorAll("#bhk-images img").forEach(img => {
         img.classList.add("hidden");
     });
@@ -738,23 +829,22 @@ function selectBhk(bhkId) {
         selectedImage.classList.remove("hidden");
         imageContainer.classList.remove("empty");
     }
+    
+    selectedBhkType = bhkName;
+    document.getElementById('bhk_type_input').value = bhkName;
 }
 
 function nextStep() {
     const totalSteps = 4;
     
-    // ✅ VALIDATION FOR EACH STEP
     if (currentStep === 1) {
-        // Check if BHK type and size are selected
-        const sizeSelected = document.querySelector('input[name="size_type"]:checked');
-        if (!sizeSelected) {
-            alert('Please select a BHK type and size before proceeding!');
+        if (!selectedBhkType) {
+            alert('Please select a BHK type before proceeding!');
             return;
         }
     }
     
     if (currentStep === 2) {
-        // Check if material is selected
         const materialSelected = document.querySelector('input[name="material_type"]:checked');
         if (!materialSelected) {
             alert('Please select a material type before proceeding!');
@@ -763,7 +853,6 @@ function nextStep() {
     }
     
     if (currentStep === 3) {
-        // Check if package is selected
         const packageSelected = document.querySelector('input[name="package_type"]:checked');
         if (!packageSelected) {
             alert('Please select a package before proceeding!');
@@ -771,7 +860,6 @@ function nextStep() {
         }
     }
     
-    // Proceed to next step
     document.getElementById(`step${currentStep}-container`).classList.add('hidden');
     document.getElementById(`step${currentStep}Label`).classList.remove('active');
     currentStep++;
@@ -785,6 +873,7 @@ function nextStep() {
         currentStep = totalSteps;
     }
 }
+
 
 function previousStep() {
     if (currentStep > 1) {

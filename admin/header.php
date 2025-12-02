@@ -189,6 +189,16 @@ if(!isset($_SESSION['user'])) {
 			            <i class="fa fa-list-ol"></i> <span>Floorplan Estimate</span>
 			          </a>
 			        </li>
+					<li class="treeview <?php if( ($cur_page == 'rooms-add.php') ) {echo 'active';} ?>">
+			          <a href="package.php">
+			            <i class="fa fa-list-ol"></i> <span>Packages</span>
+			          </a>
+			        </li>
+					<li class="treeview <?php if( ($cur_page == 'rooms-add.php') ) {echo 'active';} ?>">
+			          <a href="categories.php">
+			            <i class="fa fa-list-ol"></i> <span>Category</span>
+			          </a>
+			        </li>
 
       			</ul>
     		</section>

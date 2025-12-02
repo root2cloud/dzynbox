@@ -2,7 +2,7 @@
 
 <style>
 /* ================================================================
-   🎨 MARVELOUS REFER-A-FRIEND PAGE - WORLD-CLASS DESIGN
+   🎨 REFER-A-FRIEND PAGE - SIDE-BY-SIDE LAYOUT
    ================================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap');
@@ -26,11 +26,10 @@ body {
     --light: #f8fafc;
 }
 
-/* ============ CINEMATIC HERO WITH PARTICLES ============ */
+/* ============ CINEMATIC HERO WITH PARTICLES - REMOVED BG ============ */
 .cinematic-hero {
     min-height: 5vh;
-    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); */
-    background: linear-gradient(135deg, #667eea 0%, #2a2051ff 50%, #0e033cff 100%);
+    background: transparent;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -38,13 +37,14 @@ body {
     justify-content: center;
 }
 
-/* Animated Gradient Orbs */
+/* Animated Gradient Orbs - HIDDEN */
 .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.6;
+    opacity: 0;
     animation: float 20s ease-in-out infinite;
+    display: none;
 }
 
 .orb-1 {
@@ -81,12 +81,13 @@ body {
     75% { transform: translate(-100px, 50px) rotate(270deg); }
 }
 
-/* Floating Particles */
+/* Floating Particles - HIDDEN */
 .particles {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: none;
 }
 
 .particle {
@@ -118,19 +119,19 @@ body {
     z-index: 10;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 60px 20px;
     text-align: center;
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-radius: 30px;
-    padding: 80px 60px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px 30px;
+    border: 2px solid rgba(102, 126, 234, 0.4);
     box-shadow: 
-        0 20px 60px rgba(0,0,0,0.3),
-        inset 0 1px 1px rgba(255,255,255,0.5);
+        0 20px 60px rgba(0,0,0,0.1),
+        inset 0 1px 1px rgba(255,255,255,0.3);
     animation: fadeInUp 1s ease-out;
 }
 
@@ -147,32 +148,31 @@ body {
 
 .hero-badge {
     display: inline-block;
-    /* background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1)); */
     backdrop-filter: blur(10px);
     padding: 12px 30px;
     border-radius: 50px;
-    color: white;
+    color: #667eea;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 30px;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 2px solid #667eea;
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
-    50% { box-shadow: 0 0 40px rgba(255,255,255,0.8); }
+    0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.5); }
 }
 
 .hero-title {
-    font-size: 72px;
+    font-size: 42px;
     font-weight: 900;
-    color: white;
+    color: #0f172a;
     margin-bottom: 25px;
     line-height: 1.1;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-shadow: none;
     animation: slideIn 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
@@ -203,8 +203,8 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 24px;
-    color: rgba(255,255,255,0.95);
+    font-size: 16px;
+    color: #4a5568;
     margin-bottom: 50px;
     font-weight: 400;
     line-height: 1.7;
@@ -225,7 +225,7 @@ body {
 
 .reward-inner {
     background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-    padding: 50px 70px;
+    padding: 30px 40px;
     border-radius: 30px;
     transform-style: preserve-3d;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -259,7 +259,7 @@ body {
 }
 
 .reward-amount {
-    font-size: 68px;
+    font-size: 38px;
     font-weight: 900;
     color: #1a1a1a;
     text-shadow: 3px 3px 0 rgba(255,255,255,0.3);
@@ -277,10 +277,10 @@ body {
     }
 }
 
-/* ============ FLOATING FEATURES SECTION ============ */
+/* ============ FLOATING FEATURES SECTION - WHITE BG ============ */
 .features-space {
-    padding: 150px 20px;
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    padding: 60px 20px;
+    background: #ffffff;
     position: relative;
     overflow: hidden;
 }
@@ -304,9 +304,9 @@ body {
 }
 
 .feature-pod {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(99, 102, 241, 0.05);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(102, 126, 234, 0.4);
     border-radius: 25px;
     padding: 50px 40px;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -347,22 +347,22 @@ body {
 
 .feature-pod:hover {
     transform: translateY(-20px) scale(1.03);
-    border-color: rgba(99,102,241,0.5);
+    border-color: rgba(102,126,234,0.6);
     box-shadow: 
         0 30px 80px rgba(99,102,241,0.3),
         inset 0 1px 1px rgba(255,255,255,0.2);
 }
 
 .feature-icon-3d {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto 35px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 56px;
+    font-size: 36px;
     transform-style: preserve-3d;
     transition: all 0.5s;
     box-shadow: 0 20px 50px rgba(102,126,234,0.4);
@@ -373,37 +373,49 @@ body {
 }
 
 .feature-pod h3 {
-    font-size: 28px;
-    color: white;
+    font-size: 20px;
+    color: #0f172a;
     font-weight: 700;
     margin-bottom: 20px;
     text-align: center;
 }
 
 .feature-pod p {
-    font-size: 17px;
-    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    color: #4a5568;
     line-height: 1.8;
     text-align: center;
 }
 
-/* ============ ANIMATED TIMELINE ============ */
-.timeline-section {
-    padding: 150px 20px;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+/* ============ 🔥 SIDE-BY-SIDE SECTION - WHITE BG 🔥 ============ */
+.side-by-side-wrapper {
+    padding: 80px 20px;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.side-by-side-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* ========== LEFT SIDE: HOW IT WORKS ========== */
+.timeline-side {
     position: relative;
 }
 
 .section-title {
     text-align: center;
-    font-size: 58px;
+    font-size: 32px;
     font-weight: 900;
     color: #0f172a;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .section-title::after {
@@ -412,32 +424,24 @@ body {
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
-    height: 6px;
+    width: 100px;
+    height: 4px;
     background: linear-gradient(90deg, #667eea, #764ba2);
     border-radius: 10px;
 }
 
 .timeline-flow {
-    max-width: 1100px;
-    margin: 0 auto;
     position: relative;
 }
 
 .timeline-step {
     display: flex;
-    align-items: center;
-    gap: 60px;
-    margin-bottom: 100px;
+    align-items: flex-start;
+    gap: 25px;
+    margin-bottom: 40px;
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translateX(-50px);
     animation: slide-in-right 0.8s ease-out forwards;
-}
-
-.timeline-step:nth-child(even) {
-    flex-direction: row-reverse;
-    transform: translateX(100px);
-    animation-name: slide-in-left;
 }
 
 .timeline-step:nth-child(1) { animation-delay: 0.2s; }
@@ -451,180 +455,187 @@ body {
     }
 }
 
-@keyframes slide-in-left {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 .step-number-circle {
     flex-shrink: 0;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 42px;
+    font-size: 24px;
     font-weight: 900;
-    box-shadow: 0 20px 50px rgba(102,126,234,0.5);
-    position: relative;
-    animation: rotate-pulse 3s ease-in-out infinite;
-}
-
-@keyframes rotate-pulse {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(360deg) scale(1.1); }
+    box-shadow: 0 10px 30px rgba(102,126,234,0.5);
 }
 
 .step-content-box {
     flex: 1;
-    background: white;
-    padding: 45px 50px;
-    border-radius: 25px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    background: rgba(99, 102, 241, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 20px;
+    border: 2px solid rgba(102, 126, 234, 0.4);
     transition: all 0.4s;
-    border-left: 5px solid #667eea;
 }
 
 .step-content-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 30px 80px rgba(102,126,234,0.25);
+    transform: translateX(10px);
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(102,126,234,0.6);
+    box-shadow: 0 10px 40px rgba(102,126,234,0.3);
 }
 
 .step-content-box h4 {
-    font-size: 26px;
+    font-size: 18px;
     color: #0f172a;
     font-weight: 700;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .step-content-box p {
-    font-size: 17px;
-    color: #64748b;
-    line-height: 1.8;
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.7;
 }
 
-/* ============ PREMIUM FORM WITH MICRO-INTERACTIONS ============ */
-.form-sanctuary {
-    padding: 150px 20px;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+/* ========== RIGHT SIDE: FORM - LIGHT PURPLE BORDER ========== */
+.form-side {
     position: relative;
 }
 
 .form-container-deluxe {
-    max-width: 850px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.08);
+    background: #ffffff;
     backdrop-filter: blur(20px);
-    padding: 70px 60px;
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+    padding: 40px 35px;
+    border-radius: 30px;
+    border: 2px solid rgba(102, 126, 234, 0.4);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 20px;
 }
 
 .form-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 .form-header h2 {
-    font-size: 48px;
-    color: white;
+    font-size: 28px;
+    color: #0f172a;
     font-weight: 900;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .form-header p {
-    font-size: 19px;
-    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    color: #4a5568;
 }
 
+/* ✅ INLINE LABEL+INPUT LAYOUT */
 .input-group {
-    margin-bottom: 35px;
+    margin-bottom: 18px;
     position: relative;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    gap: 12px;
+    align-items: center;
 }
 
 .input-group label {
-    display: block;
-    color: rgba(255,255,255,0.9);
-    font-size: 16px;
+    color: #0f172a;
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: all 0.3s;
 }
 
 .input-field {
     width: 100%;
-    padding: 20px 25px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    color: white;
-    font-size: 16px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 11px;
+    color: #0f172a;
+    font-size: 13px;
     font-family: inherit;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .input-field::placeholder {
-    color: rgba(255,255,255,0.5);
+    color: #94a3b8;
 }
 
 .input-field:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #667eea;
-    box-shadow: 0 0 0 6px rgba(102,126,234,0.2);
-    transform: translateY(-3px);
+    background: #ffffff;
+    border: 2px solid rgba(102, 126, 234, 0.6);
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.15);
+    transform: translateY(-2px);
 }
 
 .input-group:has(.input-field:focus) label {
     color: #667eea;
-    transform: translateX(5px);
 }
 
-.divider-fancy {
+/* ✅ FULL-WIDTH FOR DIVIDER */
+.divider-fancy {    
     display: flex;
     align-items: center;
-    gap: 25px;
-    margin: 50px 0;
+    gap: 20px;
+    margin: 25px 0 18px;
+    grid-column: 1 / -1;
 }
 
 .divider-fancy span {
-    color: rgba(255,255,255,0.6);
-    font-size: 15px;
+    color: #94a3b8;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
 }
 
 .divider-fancy::before,
 .divider-fancy::after {
     content: '';
     flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.5), transparent);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), transparent);
+}
+
+/* ✅ FULL-WIDTH FOR TEXTAREA & BUTTON */
+.input-group.full-width {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group.full-width label {
+    white-space: normal;
 }
 
 .submit-button-epic {
     width: 100%;
-    padding: 24px 50px;
+    padding: 13px 32px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     border-radius: 50px;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     cursor: pointer;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     box-shadow: 0 20px 50px rgba(102,126,234,0.5);
     position: relative;
     overflow: hidden;
+    margin-top: 5px;
 }
 
 .submit-button-epic::before {
@@ -646,81 +657,52 @@ body {
 }
 
 .submit-button-epic:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 0 30px 70px rgba(102,126,234,0.7);
 }
 
-/* ============ CALL-TO-ACTION EXPLOSION ============ */
-.cta-explosion {
-    padding: 120px 20px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-explosion::before {
-    content: '';
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: expand-pulse 4s ease-in-out infinite;
-}
-
-@keyframes expand-pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.2; }
-}
-
-.cta-explosion h3 {
-    font-size: 52px;
-    color: white;
-    font-weight: 900;
-    margin-bottom: 30px;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: bounce-in 1s ease-out;
-}
-
-@keyframes bounce-in {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.phone-display {
-    font-size: 58px;
-    color: white;
-    font-weight: 900;
-    margin: 40px 0;
-    letter-spacing: 3px;
-    text-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    animation: glow-pulse 2s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-    0%, 100% { text-shadow: 0 0 30px rgba(255,255,255,0.8); }
-    50% { text-shadow: 0 0 60px rgba(255,255,255,1); }
-}
-
 /* ============ RESPONSIVE ============ */
-@media (max-width: 768px) {
-    .hero-title { font-size: 42px; }
-    .reward-amount { font-size: 48px; }
-    .section-title { font-size: 38px; }
-    .timeline-step { flex-direction: column !important; }
-    .features-grid { grid-template-columns: 1fr; }
+@media (max-width: 1024px) {
+    .side-by-side-container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .form-container-deluxe {
+        position: static;
+    }
 }
 
-/* Generate 50 particles */
+@media (max-width: 768px) {
+    .hero-title { font-size: 28px; }
+    .hero-subtitle { font-size: 14px; }
+    .reward-amount { font-size: 28px; }
+    .section-title { font-size: 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .step-number-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    .feature-icon-3d {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+    .side-by-side-wrapper {
+        padding: 40px 15px;
+    }
+    .form-container-deluxe {
+        padding: 30px 20px;
+    }
+    
+    .input-group {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 
 <?php
-// Generate 50 floating particles
 $particles = '';
 for($i = 1; $i <= 50; $i++) {
     $left = rand(0, 100);
@@ -776,7 +758,7 @@ echo $particles;
 
 <!-- ========== FLOATING FEATURES ========== -->
 <div class="features-space">
-    <h2 class="section-title" style="color: white; margin-bottom: 100px;">Why Our Program is Unbeatable</h2>
+    <h2 class="section-title" style="margin-bottom: 100px;">Why Our Program is Unbeatable</h2>
     
     <div class="features-grid">
         <div class="feature-pod">
@@ -799,99 +781,98 @@ echo $particles;
     </div>
 </div>
 
-<!-- ========== ANIMATED TIMELINE ========== -->
-<div class="timeline-section">
-    <h2 class="section-title">How It Works</h2>
-    
-    <div class="timeline-flow">
-        <div class="timeline-step">
-            <div class="step-number-circle">1</div>
-            <div class="step-content-box">
-                <h4>Share Referral Details</h4>
-                <p>Simply fill out our elegant form below with your friend's contact information and their interior design aspirations.</p>
+<!-- ========== 🔥 SIDE-BY-SIDE: TIMELINE + FORM 🔥 ========== -->
+<div class="side-by-side-wrapper">
+    <div class="side-by-side-container">
+        
+        <!-- LEFT: HOW REFERRAL WORKS -->
+        <div class="timeline-side">
+            <h2 class="section-title">How Referral Works</h2>
+            
+            <div class="timeline-flow">
+                <div class="timeline-step">
+                    <div class="step-number-circle">1</div>
+                    <div class="step-content-box">
+                        <h4>Share Referral Details</h4>
+                        <p>Simply fill out our elegant form with your friend's contact information and their interior design aspirations.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-number-circle">2</div>
+                    <div class="step-content-box">
+                        <h4>We Connect & Consult</h4>
+                        <p>Our expert design team reaches out within 24 hours to provide a personalized, no-obligation consultation.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-number-circle">3</div>
+                    <div class="step-content-box">
+                        <h4>Claim Your Reward</h4>
+                        <p>Once your referral confirms their project, you receive your choice of reward immediately—guaranteed!</p>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="timeline-step">
-            <div class="step-number-circle">2</div>
-            <div class="step-content-box">
-                <h4>We Connect & Consult</h4>
-                <p>Our expert design team reaches out within 24 hours to provide a personalized, no-obligation consultation.</p>
+        <!-- RIGHT: FORM -->
+        <div class="form-side">
+            <div class="form-container-deluxe">
+                <div class="form-header">
+                    <h2>Submit Your Referral</h2>
+                    <p>Transform a friend's space & earn rewards</p>
+                </div>
+                
+                <form action="process-referral.php" method="POST">
+                    <!-- Your Info - SIDE BY SIDE -->
+                    <div class="input-group">
+                        <label>Your Name *</label>
+                        <input type="text" name="your_name" class="input-field" required placeholder="John Doe">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Your Email *</label>
+                        <input type="email" name="your_email" class="input-field" required placeholder="you@example.com">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Your Phone *</label>
+                        <input type="tel" name="your_phone" class="input-field" required placeholder="+91 98765">
+                    </div>
+                    
+                    <div class="divider-fancy">
+                        <span>Referral Info</span>
+                    </div>
+                    
+                    <!-- Referral Info - SIDE BY SIDE -->
+                    <div class="input-group">
+                        <label>Ref. Name *</label>
+                        <input type="text" name="referral_name" class="input-field" required placeholder="Jane Smith">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Ref. Email</label>
+                        <input type="email" name="referral_email" class="input-field" placeholder="friend@example.com">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Ref. Phone *</label>
+                        <input type="tel" name="referral_phone" class="input-field" required placeholder="+91 98765">
+                    </div>
+                    
+                    <!-- Full Width Textarea -->
+                    <div class="input-group full-width">
+                        <label>Details</label>
+                        <textarea name="message" class="input-field" rows="2" placeholder="Design dreams..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button-epic">Submit Now</button>
+                </form>
             </div>
         </div>
         
-        <div class="timeline-step">
-            <div class="step-number-circle">3</div>
-            <div class="step-content-box">
-                <h4>Claim Your Reward</h4>
-                <p>Once your referral confirms their project, you receive your choice of reward immediately—guaranteed!</p>
-            </div>
-        </div>
     </div>
-</div>
-
-<!-- ========== PREMIUM FORM ========== -->
-<div class="form-sanctuary">
-    <div class="form-container-deluxe">
-        <div class="form-header">
-            <h2>Submit Your Referral</h2>
-            <p>Help transform a friend's space & earn amazing rewards</p>
-        </div>
-        
-        <form action="process-referral.php" method="POST">
-            <!-- Your Info -->
-            <div class="input-group">
-                <label>Your Full Name *</label>
-                <input type="text" name="your_name" class="input-field" required placeholder="John Doe">
-            </div>
-            
-            <div class="input-group">
-                <label>Your Email Address *</label>
-                <input type="email" name="your_email" class="input-field" required placeholder="you@example.com">
-            </div>
-            
-            <div class="input-group">
-                <label>Your Phone Number *</label>
-                <input type="tel" name="your_phone" class="input-field" required placeholder="+91 98765 43210">
-            </div>
-            
-            <div class="divider-fancy">
-                <span>Referral Information</span>
-            </div>
-            
-            <!-- Referral Info -->
-            <div class="input-group">
-                <label>Referral's Full Name *</label>
-                <input type="text" name="referral_name" class="input-field" required placeholder="Jane Smith">
-            </div>
-            
-            <div class="input-group">
-                <label>Referral's Email Address</label>
-                <input type="email" name="referral_email" class="input-field" placeholder="friend@example.com">
-            </div>
-            
-            <div class="input-group">
-                <label>Referral's Phone Number *</label>
-                <input type="tel" name="referral_phone" class="input-field" required placeholder="+91 98765 43210">
-            </div>
-            
-            <div class="input-group">
-                <label>Additional Details (Optional)</label>
-                <textarea name="message" class="input-field" rows="4" placeholder="Tell us about their design dreams..."></textarea>
-            </div>
-            
-            <button type="submit" class="submit-button-epic">Submit Now</button>
-        </form>
-    </div>
-</div>
-
-<!-- ========== CTA EXPLOSION ========== -->
-<div class="cta-explosion">
-    <h3>Questions? We're Here 24/7!</h3>
-    <div class="phone-display">(+91) 949 508 7777</div>
-    <p style="font-size: 19px; color: rgba(255,255,255,0.95); max-width: 650px; margin: 0 auto;">
-        Our dedicated referral team is ready to answer any questions about the program
-    </p>
-</div>
+</div>  
 
 <?php require_once('footer.php'); ?>
