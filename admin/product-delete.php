@@ -70,4 +70,4 @@ if(!isset($_REQUEST['id'])) {
 	$statement->execute(array($_REQUEST['id']));
 
 	header('location: product.php');
-?>
+?>	

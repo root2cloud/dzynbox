@@ -95,7 +95,7 @@ function getPackageData($packageType, $bhkType) {
     
     $conn->close();
     return $packageData;
-}
+}   
 
 
 function generateQuotePDF($bhkType, $materialType, $packageType) {

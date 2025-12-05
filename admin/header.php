@@ -191,12 +191,12 @@ if(!isset($_SESSION['user'])) {
 			        </li>
 					<li class="treeview <?php if( ($cur_page == 'rooms-add.php') ) {echo 'active';} ?>">
 			          <a href="package.php">
-			            <i class="fa fa-list-ol"></i> <span>Packages</span>
+			            <i class="fa fa-list-ol"></i> <span>Package's Quotation</span>
 			          </a>
 			        </li>
 					<li class="treeview <?php if( ($cur_page == 'rooms-add.php') ) {echo 'active';} ?>">
-			          <a href="categories.php">
-			            <i class="fa fa-list-ol"></i> <span>Category</span>
+			          <a href="end-category-manage.php">
+			            <i class="fa fa-list-ol"></i> <span>Product Images</span>
 			          </a>
 			        </li>
 

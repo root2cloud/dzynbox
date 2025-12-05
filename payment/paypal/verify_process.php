@@ -69,4 +69,4 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
     $statement = $pdo->prepare("DELETE FROM tbl_payment WHERE payment_id=?");
     $sql = $statement->execute(array($_POST['item_number']));
 }
-?>
+?>  
